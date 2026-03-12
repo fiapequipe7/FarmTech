@@ -32,15 +32,15 @@
 
 ## 🔧 Como executar o código
 
-# Primeiro clone o repositório do GitHub para sua máquina.
+### Primeiro clone o repositório do GitHub para sua máquina.
 
 git clone git@github.com:fiapequipe7/FarmTech.git
 
-# Entre na pasta do projeto:
+### Entre na pasta do projeto:
 
 cd farmtech
 
-# Crie um ambiente virtual Python para isolar as dependências do projeto.
+### Crie um ambiente virtual Python para isolar as dependências do projeto.
 
 Linux / Mac
 
@@ -50,7 +50,7 @@ Windows
 
 python -m venv venv
 
-# Ativar o ambiente virtual
+### Ativar o ambiente virtual
 
 Linux / Mac
 source venv/bin/activate
@@ -58,7 +58,7 @@ source venv/bin/activate
 Windows (PowerShell)
 venv\Scripts\Activate
 
-# Execute o arquivo principal do sistema:
+### Execute o arquivo principal do sistema:
 
 python main.py
 
