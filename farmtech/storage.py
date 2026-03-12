@@ -1,0 +1,4 @@
+talhoes = []
+culturas = []
+areas = []
+custos = []
