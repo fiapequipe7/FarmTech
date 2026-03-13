@@ -1,14 +1,19 @@
-from farmtech.talhao import (
-    cadastrar_talhao,
-    listar_talhoes,
-    deletar_talhao,
-    atualizar_talhao
-)
+"""
+    interface com usuário
+"""
 
+
+from farmtech.service import *
+import os
+
+def limparTela():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def menu():
 
     while True:
+
+        limparTela()
 
         print("""
 ====== FARMTECH ======
@@ -40,3 +45,5 @@ def menu():
 
         else:
             print("Opcao invalida")
+
+        input("\nPressione Enter para continuar...")
