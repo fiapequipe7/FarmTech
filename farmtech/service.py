@@ -5,6 +5,9 @@
 from farmtech.storage import talhoes
 from farmtech.talhao import Talhao
 
+from farmtech.calculos import calculo_area
+
+
 def cadastrar_talhao():
     nome = input("Nome do talhão: ")
 
@@ -20,17 +23,13 @@ def cadastrar_talhao():
 
     if opcao == "1":
         cultura = "Cana-de-açúcar"
+        area = calculo_area(cultura)
     elif opcao == "2":
         cultura = "Café Arabica"
+        area = calculo_area(cultura)
     else:
         print("Opção inválida")
         return
-
-    # Área à ser calculada 
-    area = 0
-
-    # Custo também
-    insumos = 0
 
     novo_talhao = Talhao(nome, cultura, area, insumos)
     talhoes.append(novo_talhao)
