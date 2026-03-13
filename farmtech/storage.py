@@ -1,4 +1,5 @@
+"""
+    armazenamento de dados
+"""
+
 talhoes = []
-culturas = []
-areas = []
-custos = []
