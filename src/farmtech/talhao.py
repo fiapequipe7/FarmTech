@@ -78,16 +78,13 @@ class Talhao:
             "unidade_custo": "R$/t"
         }]
 
-    def exibir(self):
-        print(f"Talhão: {self.nome}")
-        print(f"Cultura: {self.cultura}")
-        print(f"Área: {self.area}")
-        print(f"Insumos: {self.insumos}")
-
     def __str__(self):
+        nomes = []
+        for insumo in self.insumos:
+            nomes.append( insumo["nome"])
         return f"""
     Nome: {self.nome}
     Cultura: {self.cultura}
     Área: {self.area} ha
-    Insumos: {self.insumos}
+    Insumos: {nomes[0],nomes[1],nomes[2],nomes[3]}
     """

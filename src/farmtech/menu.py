@@ -44,6 +44,7 @@ def menu():
         input("\nPressione Enter para continuar...")
 
 def mostrar_talhoes() -> bool:
+    limparTela()
     lista_de_talhoes = listar_talhoes()
 
     if not lista_de_talhoes:
