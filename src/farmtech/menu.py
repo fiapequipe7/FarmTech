@@ -70,20 +70,35 @@ def adicionar_talhao():
         if opcao == "1":
             cultura = "Cana-de-açúcar"
             print("Calculando a área(retângulo).........")
-            base = float(input("Base: "))
-            altura = float(input("Altura: "))
-            area = calculo_retangulo(base, altura)
-            cadastrar_talhao(nome, cultura, area)
+            while True:
+                try:
+                    base = float(input("Base: "))
+                    altura = float(input("Altura: "))
+                    area = calculo_retangulo(base, altura)
+                    cadastrar_talhao(nome, cultura, area)
+                    print("Talhão cadastrado!")
+                    return
+                except ValueError:
+                    print("Por favor insira somente números")
+                    continue
+
+
             break
         elif opcao == "2":
             cultura = "Café Arabica"
             print("Calculando a área(Trapézio).............")
-            base_maior = float(input("Base Maior: "))
-            base_menor = float(input("Base Menor: "))
-            altura = float(input("Altura: "))
-            area = calculo_trapezio(base_maior, base_menor, altura)
-            cadastrar_talhao(nome, cultura, area)
-            break
+            while True:
+                try:
+                    base_maior = float(input("Base Maior: "))
+                    base_menor = float(input("Base Menor: "))
+                    altura = float(input("Altura: "))
+                    area = calculo_trapezio(base_maior, base_menor, altura)
+                    cadastrar_talhao(nome, cultura, area)
+                    print("Talhao cadastrado!")
+                    return
+                except ValueError:
+                    print("Por favor insira somente números")
+                    continue
         else:
             print("Opção inválida")
             continue
