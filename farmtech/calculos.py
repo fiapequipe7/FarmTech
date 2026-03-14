@@ -1,3 +1,0 @@
-"""
-    cálculos agrícolas 
-"""

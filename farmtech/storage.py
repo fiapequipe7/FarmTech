@@ -1,5 +1,0 @@
-"""
-    armazenamento de dados
-"""
-
-talhoes = []
