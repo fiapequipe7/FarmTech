@@ -9,7 +9,8 @@ def cadastrar_talhao(nome:str,cultura:str,area) -> None:
 
     novo_talhao = Talhao(nome, cultura, area)
     talhoes.append(novo_talhao)
-
+def listar_talhoes() -> list:
+    return talhoes
 
 def deletar_talhao():
     if len(talhoes) == 0:

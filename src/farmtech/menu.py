@@ -44,10 +44,11 @@ def menu():
         input("\nPressione Enter para continuar...")
 
 def mostrar_talhoes() -> bool:
-    if not talhoes:
+    lista_de_talhoes = listar_talhoes()
+    if not listar_talhoes():
         print("Nenhum talhão foi cadastrado")
         return False
-    for i, talhao in enumerate(talhoes):
+    for i, talhao in enumerate(lista_de_talhoes):
         print("======================================")
         print(f"ID:{i}", talhao)
     return True
