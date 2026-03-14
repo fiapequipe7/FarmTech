@@ -45,14 +45,18 @@ def menu():
 
 def mostrar_talhoes() -> bool:
     lista_de_talhoes = listar_talhoes()
-    if not listar_talhoes():
+
+    if not lista_de_talhoes:
         print("Nenhum talhão foi cadastrado")
         return False
+
     for i, talhao in enumerate(lista_de_talhoes):
         print("======================================")
         print(f"ID:{i}")
         print(talhao)
+
     return True
+
 def adicionar_talhao():
     while True:
         limparTela()
@@ -111,6 +115,10 @@ def apagar_talhao():
             # Validação para garantir que a entrada seja um número e não uma string vazia ou um valor não numérico
             if entrada == "" or not entrada.isdigit():
                 print("ID inválido")
+                continue
             indice = int(entrada)
-            deletar_talhao(indice)
+            if deletar_talhao(indice):
+                print("Talhão removido")
+            else:
+                print("ID inválido")
             return
