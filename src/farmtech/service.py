@@ -11,10 +11,6 @@ def cadastrar_talhao(nome:str,cultura:str,area) -> None:
     talhoes.append(novo_talhao)
 
 
-def listar_talhoes() -> list|None:
-    return talhoes
-
-
 def deletar_talhao():
     if len(talhoes) == 0:
         print("Nenhum talhão cadastrado")

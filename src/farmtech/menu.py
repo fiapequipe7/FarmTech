@@ -58,35 +58,24 @@ def menu():
                 print("Talhão Cadastrado com sucesso!")
 
             case "2":
-                lista_de_talhoes = listar_talhoes()
-                if not lista_de_talhoes:
-                    print("Nenhum Talhão cadastrado")
-                    continue
-                for i,talhao in enumerate(lista_de_talhoes):
-                    print("======================================")
-                    print(f"ID:{i}",talhao)
+                mostrar_talhoes()
 
             case "3":
-                if not listar_talhoes():
-                    print("Nenhum Talhão cadastrado")
-                    continue
-                for i,talhao in enumerate(talhoes):
-                    print("======================================")
-                    print(i,talhao)
-                entrada = input("Digite o ID para atualizar: ")
+                if mostrar_talhoes():
+                    entrada = input("Digite o ID para atualizar: ")
 
-                if not entrada.isdigit():
-                    print("ID inválido")
-                    continue
+                    if not entrada.isdigit():
+                        print("ID inválido")
+                        continue
 
-                indice = int(entrada)
+                    indice = int(entrada)
 
-                novo_nome = input("Novo nome do talhão: ")
+                    novo_nome = input("Novo nome do talhão: ")
 
-                if atualizar_talhao(indice, novo_nome):
-                    print("Talhão atualizado")
-                else:
-                    print("Não foi possível atualizar o talhão")
+                    if atualizar_talhao(indice, novo_nome):
+                        print("Talhão atualizado")
+                    else:
+                        print("Não foi possível atualizar o talhão")
             case "4":
                 deletar_talhao()
 
@@ -97,3 +86,12 @@ def menu():
                 print("opçao invalida")
 
         input("\nPressione Enter para continuar...")
+
+def mostrar_talhoes() -> bool:
+    if not talhoes:
+        print("Nenhum talhão foi cadastrado")
+        return False
+    for i, talhao in enumerate(talhoes):
+        print("======================================")
+        print(f"ID:{i}", talhao)
+    return True
