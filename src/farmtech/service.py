@@ -2,53 +2,17 @@
     lógica de manipulação de dados, cadastro, listagem, atualização e remoção
 """
 
-from farmtech.storage import talhoes
-from farmtech.talhao import Talhao
+from src.farmtech.storage import talhoes
+from src.farmtech.talhao import Talhao
 
-from farmtech.calculos import calculo_area
+def cadastrar_talhao(nome:str,cultura:str,area) -> None:
 
-
-def cadastrar_talhao():
-    nome = input("Nome do talhão: ")
-
-    if nome == "":
-        print("Atualização cancelada")
-        return
-
-    print("Escolha a cultura")
-    print("1 - Cana de açúcar")
-    print("2 - Café Arabica")
-
-    opcao = input("Opção: ")
-
-    if opcao == "1":
-        cultura = "Cana-de-açúcar"
-        area = calculo_area(cultura)
-    elif opcao == "2":
-        cultura = "Café Arabica"
-        area = calculo_area(cultura)
-    else:
-        print("Opção inválida")
-        return
-
-    novo_talhao = Talhao(nome, cultura, area, insumos)
+    novo_talhao = Talhao(nome, cultura, area)
     talhoes.append(novo_talhao)
 
-    print("Talhão cadastrado com sucesso!")
 
-
-def listar_talhoes():
-    if len(talhoes) == 0:
-        print("Nenhum talhão cadastrado")
-        return
-
-    for i, talhao in enumerate(talhoes):
-        print(f"""ID: {i}
-        Nome: {talhao.nome}
-        Cultura: {talhao.cultura}
-        Área: {talhao.area}
-        Insumos: {talhao.insumos}
-        """)
+def listar_talhoes() -> list|None:
+    return talhoes
 
 
 def deletar_talhao():

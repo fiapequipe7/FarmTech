@@ -2,7 +2,6 @@
     modelo de dados
 """
 
-from farmtech.storage import talhoes
 
 class Talhao:
 
@@ -17,3 +16,11 @@ class Talhao:
         print(f"Cultura: {self.cultura}")
         print(f"Área: {self.area}")
         print(f"Insumos: {self.insumos}")
+
+    def __str__(self):
+        return f"""
+    Nome: {self.nome}
+    Cultura: {self.cultura}
+    Área: {self.area} ha
+    Insumos: {self.insumos}
+    """
