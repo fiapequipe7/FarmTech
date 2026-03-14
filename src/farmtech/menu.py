@@ -1,8 +1,8 @@
 """
     interface com usuário
 """
-from src.farmtech.calculos import *
-from src.farmtech.service import *
+from farmtech.calculos import *
+from farmtech.service import *
 import os
 
 def limparTela():

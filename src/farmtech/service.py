@@ -2,8 +2,8 @@
     lógica de manipulação de dados, cadastro, listagem, atualização e remoção
 """
 
-from src.farmtech.storage import talhoes
-from src.farmtech.talhao import Talhao
+from farmtech.storage import talhoes
+from farmtech.talhao import Talhao
 
 def cadastrar_talhao(nome:str,cultura:str,area) -> None:
     novo_talhao = Talhao(nome, cultura, area)
