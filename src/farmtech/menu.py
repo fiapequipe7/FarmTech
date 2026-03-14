@@ -91,6 +91,9 @@ def adicionar_talhao():
                 try:
                     base_maior = float(input("Base Maior: "))
                     base_menor = float(input("Base Menor: "))
+                    while base_menor>base_maior:
+                        print("A base menor deve ser menor que a base maior")
+                        base_menor = float(input("Base Menor: "))
                     altura = float(input("Altura: "))
                     area = calculo_trapezio(base_maior, base_menor, altura)
                     cadastrar_talhao(nome, cultura, area)
