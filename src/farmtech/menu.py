@@ -15,14 +15,17 @@ def menu():
         limparTela()
 
         print("""
-====== FARMTECH ======
+╔══════════════════════════════╗
+║        FARMTECH SYSTEM       ║
+╚══════════════════════════════╝
 
-1 - Cadastrar talhao
-2 - Listar talhoes
-3 - Atualizar talhao
-4 - Deletar talhao
-0 - Sair
+[1] Cadastrar Talhão
+[2] Listar Talhões
+[3] Atualizar Talhão
+[4] Remover Talhão
+[0] Sair
 
+--------------------------------
 """)
 
         match input("Escolha: "):
@@ -41,18 +44,18 @@ def menu():
             case _:
                 print("opçao invalida")
 
-        input("\nPressione Enter para continuar...")
+        input("\nPressione ENTER para voltar ao menu...")
 
 def mostrar_talhoes() -> bool:
     limparTela()
     lista_de_talhoes = listar_talhoes()
 
     if not lista_de_talhoes:
-        print("Nenhum talhão foi cadastrado")
+        print("⚠ Nenhum talhão cadastrado no sistema.")
         return False
 
     for i, talhao in enumerate(lista_de_talhoes):
-        print("======================================")
+        print("────────────────────────────────")
         print(f"ID:{i}")
         print(talhao)
 
@@ -61,15 +64,16 @@ def mostrar_talhoes() -> bool:
 def adicionar_talhao():
     while True:
         limparTela()
-        print("Cadastrando talhão......")
+        print("=== Cadastro de Talhão ===")
         nome = input("Nome do talhão: ")
-        print("Escolha uma cultura.....")
-        print("1 - Cana de açúcar\n"
-              "2 - Café Arabica")
+        print("Selecione o tipo de cultura:")
+        print("[1] Cana de açúcar\n"
+              "[2] Café Arabica")
         opcao = input("Escolha: ")
         if opcao == "1":
             cultura = "Cana-de-açúcar"
-            print("Calculando a área(retângulo).........")
+            print("Cálculo da área (retângulo)\n"
+                  "Informe as dimensões do terreno:")
             while True:
                 try:
                     base = float(input("Base: "))
@@ -86,7 +90,8 @@ def adicionar_talhao():
             break
         elif opcao == "2":
             cultura = "Café Arabica"
-            print("Calculando a área(Trapézio).............")
+            print("Cálculo da área (trapézio) \n"
+                  "Informe as dimensões do terreno:")
             while True:
                 try:
                     base_maior = float(input("Base Maior: "))
@@ -97,10 +102,10 @@ def adicionar_talhao():
                     altura = float(input("Altura: "))
                     area = calculo_trapezio(base_maior, base_menor, altura)
                     cadastrar_talhao(nome, cultura, area)
-                    print("Talhao cadastrado!")
+                    print("✅ Talhão cadastrado com sucesso!")
                     return
                 except ValueError:
-                    print("Por favor insira somente números")
+                    print("❌ Valor inválido. Digite apenas números.")
                     continue
         else:
             print("Opção inválida")
@@ -109,9 +114,9 @@ def adicionar_talhao():
 def alterar_talhao():
     if mostrar_talhoes():
         while True:
-            entrada = input("Digite o ID para atualizar: ")
+            entrada = input("Informe o ID do talhão que deseja atualizar: ")
             if entrada == "":
-                sair = input("Sair do menu?(S/N) ")
+                sair = input("Deseja sair desta operação? (S/N): ")
                 if sair.lower() == "n":
                     continue
                 elif sair.lower() == "s":
@@ -119,19 +124,19 @@ def alterar_talhao():
                 else:
                     continue
             if not entrada.isdigit():
-                print("ID invalido")
+                print("❌ ID inválido. Tente novamente.")
                 continue
             indice = int(entrada)
             if indice not in [x for x in range(len(listar_talhoes()))]:
-                print("ID invalido")
+                print("❌ ID inválido. Tente novamente.")
                 continue
-            novo_nome = input("Novo nome do talhão: ")
+            novo_nome = input("Digite o novo nome do talhão: ")
 
             if atualizar_talhao(indice, novo_nome):
-                print("Talhão atualizado")
+                print("✅ Talhão atualizado com sucesso!")
                 return
             else:
-                print("Não foi possível atualizar o talhão")
+                print("❌ Não foi possível atualizar o talhão.")
                 return
 
 def apagar_talhao():
@@ -139,7 +144,7 @@ def apagar_talhao():
         while True:
             entrada = input("Digite o ID do talhão para deletar: ")
             if entrada == "":
-                sair = input("Sair do menu?(S/N) ")
+                sair = input("Deseja sair desta operação? (S/N): ")
                 if sair.lower() == "n":
                     continue
                 elif sair.lower() == "s":
@@ -147,14 +152,14 @@ def apagar_talhao():
                 else:
                     continue
             if not entrada.isdigit():
-                print("ID invalido")
+                print("❌ ID inválido.")
                 continue
             indice = int(entrada)
             if indice not in [x for x in range(len(listar_talhoes()))]:
-                print("ID invalido")
+                print("❌ ID inválido.")
                 continue
             if deletar_talhao(indice):
-                print("Talhão removido")
+                print("🗑 Talhão removido com sucesso!")
             else:
-                print("ID inválido")
+                print("❌ ID inválido.")
             return

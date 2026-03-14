@@ -4,7 +4,6 @@
 
 from farmtech.storage import talhoes,insumos
 from farmtech.talhao import Talhao
-
 from farmtech.calculos import calculo_insumos
 
 

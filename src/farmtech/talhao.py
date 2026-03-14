@@ -2,12 +2,12 @@
     modelo de dados
 """
 class Talhao:
-
     def __init__(self, nome:str, cultura:str, area:float, insumos:list):
         self.nome = nome
         self.cultura = cultura
         self.area = area
         self.insumos = insumos
+
     def imprimir_insumo(self) -> str:
         texto = ""
         for insumo in self.insumos:
