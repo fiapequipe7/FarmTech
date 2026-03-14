@@ -79,9 +79,7 @@ class Talhao:
         }]
 
     def __str__(self):
-        nomes = []
-        for insumo in self.insumos:
-            nomes.append( insumo["nome"])
+        nomes = [insumo["nome"] for insumo in self.insumos]
         return f"""
     Nome: {self.nome}
     Cultura: {self.cultura}
