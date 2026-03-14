@@ -12,26 +12,11 @@ def cadastrar_talhao(nome:str,cultura:str,area) -> None:
 def listar_talhoes() -> list:
     return talhoes
 
-def deletar_talhao():
-    if len(talhoes) == 0:
-        print("Nenhum talhão cadastrado")
-        return
-    else:
-        listar_talhoes()
-        entrada = input("Digite o ID do talhão para deletar: ")
-
-        # Validação para garantir que a entrada seja um número e não uma string vazia ou um valor não numérico
-        if entrada == "" or not entrada.isdigit():
-            print("ID inválido")
-            return
-
-        indice = int(entrada)
-
-        if 0 <= indice < len(talhoes):
-            talhoes.pop(indice)
-            print("Talhão removido")
-        else:
-            print("ID inválido")
+def deletar_talhao(indice: int) -> bool:
+    if not 0 <= indice < len(talhoes):
+        return False
+    talhoes.pop(indice)
+    return True
 
 
 def atualizar_talhao(indice: int, novo_nome: str) -> bool:

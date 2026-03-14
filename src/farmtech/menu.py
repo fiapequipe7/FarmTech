@@ -33,7 +33,7 @@ def menu():
             case "3":
                 alterar_talhao()
             case "4":
-                deletar_talhao()
+                apagar_talhao()
 
             case "0":
                 break
@@ -50,7 +50,8 @@ def mostrar_talhoes() -> bool:
         return False
     for i, talhao in enumerate(lista_de_talhoes):
         print("======================================")
-        print(f"ID:{i}", talhao)
+        print(f"ID:{i}")
+        print(talhao)
     return True
 def adicionar_talhao():
     while True:
@@ -83,22 +84,33 @@ def adicionar_talhao():
             continue
     print("Talhão Cadastrado com sucesso!")
 def alterar_talhao():
-    while True:
-        if mostrar_talhoes():
-            while True:
-                entrada = input("Digite o ID para atualizar: ")
+    if mostrar_talhoes():
+        while True:
+            entrada = input("Digite o ID para atualizar: ")
 
-                if not entrada.isdigit():
-                    print("ID inválido")
-                    continue
+            if not entrada.isdigit():
+                print("ID inválido")
+                continue
 
-                indice = int(entrada)
+            indice = int(entrada)
 
-                novo_nome = input("Novo nome do talhão: ")
+            novo_nome = input("Novo nome do talhão: ")
 
-                if atualizar_talhao(indice, novo_nome):
-                    print("Talhão atualizado")
-                    break
-                else:
-                    print("Não foi possível atualizar o talhão")
-                    break
+            if atualizar_talhao(indice, novo_nome):
+                print("Talhão atualizado")
+                break
+            else:
+                print("Não foi possível atualizar o talhão")
+                break
+
+def apagar_talhao():
+    if mostrar_talhoes():
+        while True:
+            entrada = input("Digite o ID do talhão para deletar: ")
+
+            # Validação para garantir que a entrada seja um número e não uma string vazia ou um valor não numérico
+            if entrada == "" or not entrada.isdigit():
+                print("ID inválido")
+            indice = int(entrada)
+            deletar_talhao(indice)
+            return
