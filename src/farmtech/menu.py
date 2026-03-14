@@ -27,55 +27,11 @@ def menu():
 
         match input("Escolha: "):
             case  "1":
-                while True:
-                    limparTela()
-                    print("Cadastrando talhão......")
-                    nome = input("Nome do talhão: ")
-                    print("Escolha uma cultura.....")
-                    print("1 - Cana de açúcar\n"
-                          "2 - Café Arabica")
-                    opcao = input("Escolha: ")
-                    if opcao== "1":
-                        cultura = "Cana-de-açúcar"
-                        print("Calculando a área(retângulo).........")
-                        base = float(input("Base: "))
-                        altura = float(input("Altura: "))
-                        area = calculo_retangulo(base,altura)
-                        cadastrar_talhao(nome, cultura, area)
-                        break
-                    elif opcao == "2":
-                        cultura = "Café Arabica"
-                        print("Calculando a área(Trapézio).............")
-                        base_maior = float(input("Base Maior: "))
-                        base_menor = float(input("Base Menor: "))
-                        altura = float(input("Altura: "))
-                        area = calculo_trapezio(base_maior,base_menor,altura)
-                        cadastrar_talhao(nome, cultura, area)
-                        break
-                    else:
-                        print("Opção inválida")
-                        continue
-                print("Talhão Cadastrado com sucesso!")
-
+                adicionar_talhao()
             case "2":
                 mostrar_talhoes()
-
             case "3":
-                if mostrar_talhoes():
-                    entrada = input("Digite o ID para atualizar: ")
-
-                    if not entrada.isdigit():
-                        print("ID inválido")
-                        continue
-
-                    indice = int(entrada)
-
-                    novo_nome = input("Novo nome do talhão: ")
-
-                    if atualizar_talhao(indice, novo_nome):
-                        print("Talhão atualizado")
-                    else:
-                        print("Não foi possível atualizar o talhão")
+                alterar_talhao()
             case "4":
                 deletar_talhao()
 
@@ -95,3 +51,53 @@ def mostrar_talhoes() -> bool:
         print("======================================")
         print(f"ID:{i}", talhao)
     return True
+def adicionar_talhao():
+    while True:
+        limparTela()
+        print("Cadastrando talhão......")
+        nome = input("Nome do talhão: ")
+        print("Escolha uma cultura.....")
+        print("1 - Cana de açúcar\n"
+              "2 - Café Arabica")
+        opcao = input("Escolha: ")
+        if opcao == "1":
+            cultura = "Cana-de-açúcar"
+            print("Calculando a área(retângulo).........")
+            base = float(input("Base: "))
+            altura = float(input("Altura: "))
+            area = calculo_retangulo(base, altura)
+            cadastrar_talhao(nome, cultura, area)
+            break
+        elif opcao == "2":
+            cultura = "Café Arabica"
+            print("Calculando a área(Trapézio).............")
+            base_maior = float(input("Base Maior: "))
+            base_menor = float(input("Base Menor: "))
+            altura = float(input("Altura: "))
+            area = calculo_trapezio(base_maior, base_menor, altura)
+            cadastrar_talhao(nome, cultura, area)
+            break
+        else:
+            print("Opção inválida")
+            continue
+    print("Talhão Cadastrado com sucesso!")
+def alterar_talhao():
+    while True:
+        if mostrar_talhoes():
+            while True:
+                entrada = input("Digite o ID para atualizar: ")
+
+                if not entrada.isdigit():
+                    print("ID inválido")
+                    continue
+
+                indice = int(entrada)
+
+                novo_nome = input("Novo nome do talhão: ")
+
+                if atualizar_talhao(indice, novo_nome):
+                    print("Talhão atualizado")
+                    break
+                else:
+                    print("Não foi possível atualizar o talhão")
+                    break
