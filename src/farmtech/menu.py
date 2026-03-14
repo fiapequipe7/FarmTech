@@ -98,15 +98,17 @@ def alterar_talhao():
                 continue
 
             indice = int(entrada)
-
+            if indice not in [x for x in range(len(listar_talhoes()))]:
+                print("ID invalido")
+                continue
             novo_nome = input("Novo nome do talhão: ")
 
             if atualizar_talhao(indice, novo_nome):
                 print("Talhão atualizado")
-                break
+                return
             else:
                 print("Não foi possível atualizar o talhão")
-                break
+                return
 
 def apagar_talhao():
     if mostrar_talhoes():
@@ -118,6 +120,9 @@ def apagar_talhao():
                 print("ID inválido")
                 continue
             indice = int(entrada)
+            if indice not in [x for x in listar_talhoes()]:
+                print("ID invalido")
+                continue
             if deletar_talhao(indice):
                 print("Talhão removido")
             else:
