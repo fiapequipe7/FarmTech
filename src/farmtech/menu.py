@@ -100,6 +100,9 @@ def alterar_talhao():
                     return
                 else:
                     continue
+            if not entrada.isdigit():
+                print("ID invalido")
+                continue
             indice = int(entrada)
             if indice not in [x for x in range(len(listar_talhoes()))]:
                 print("ID invalido")
@@ -125,6 +128,9 @@ def apagar_talhao():
                     return
                 else:
                     continue
+            if not entrada.isdigit():
+                print("ID invalido")
+                continue
             indice = int(entrada)
             if indice not in [x for x in listar_talhoes()]:
                 print("ID invalido")
