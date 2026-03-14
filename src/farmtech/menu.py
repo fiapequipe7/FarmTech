@@ -93,7 +93,7 @@ def alterar_talhao():
         while True:
             entrada = input("Digite o ID para atualizar: ")
             if entrada == "":
-                sair = input("Sair do menu?(S/N)")
+                sair = input("Sair do menu?(S/N) ")
                 if sair.lower() == "n":
                     continue
                 elif sair.lower() == "s":
@@ -121,7 +121,7 @@ def apagar_talhao():
         while True:
             entrada = input("Digite o ID do talhão para deletar: ")
             if entrada == "":
-                sair = input("Sair do menu?(S/N)")
+                sair = input("Sair do menu?(S/N) ")
                 if sair.lower() == "n":
                     continue
                 elif sair.lower() == "s":
@@ -132,7 +132,7 @@ def apagar_talhao():
                 print("ID invalido")
                 continue
             indice = int(entrada)
-            if indice not in [x for x in listar_talhoes()]:
+            if indice not in [x for x in range(len(listar_talhoes()))]:
                 print("ID invalido")
                 continue
             if deletar_talhao(indice):

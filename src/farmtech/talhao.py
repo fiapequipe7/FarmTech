@@ -5,7 +5,7 @@
 
 class Talhao:
 
-    def __init__(self, nome, cultura, area):
+    def __init__(self, nome:str, cultura:str, area:float):
         self.nome = nome
         self.cultura = cultura
         self.area = area
