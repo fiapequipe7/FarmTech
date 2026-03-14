@@ -6,3 +6,5 @@ def test_calculo_trapezio():
 
 def test_calculo_retangulo():
     assert calculo_retangulo(15,10) == 150.0
+def test_calculo_insumo():
+    assert()
