@@ -64,11 +64,29 @@ def menu():
                     continue
                 for i,talhao in enumerate(lista_de_talhoes):
                     print("======================================")
-                    print(i,talhao)
+                    print(f"ID:{i}",talhao)
 
             case "3":
-                atualizar_talhao()
+                if not listar_talhoes():
+                    print("Nenhum Talhão cadastrado")
+                    continue
+                for i,talhao in enumerate(talhoes):
+                    print("======================================")
+                    print(i,talhao)
+                entrada = input("Digite o ID para atualizar: ")
 
+                if not entrada.isdigit():
+                    print("ID inválido")
+                    continue
+
+                indice = int(entrada)
+
+                novo_nome = input("Novo nome do talhão: ")
+
+                if atualizar_talhao(indice, novo_nome):
+                    print("Talhão atualizado")
+                else:
+                    print("Não foi possível atualizar o talhão")
             case "4":
                 deletar_talhao()
 
