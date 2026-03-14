@@ -92,11 +92,14 @@ def alterar_talhao():
     if mostrar_talhoes():
         while True:
             entrada = input("Digite o ID para atualizar: ")
-
-            if not entrada.isdigit():
-                print("ID inválido")
-                continue
-
+            if entrada == "":
+                sair = input("Sair do menu?(S/N)")
+                if sair.lower() == "n":
+                    continue
+                elif sair.lower() == "s":
+                    return
+                else:
+                    continue
             indice = int(entrada)
             if indice not in [x for x in range(len(listar_talhoes()))]:
                 print("ID invalido")
@@ -114,11 +117,14 @@ def apagar_talhao():
     if mostrar_talhoes():
         while True:
             entrada = input("Digite o ID do talhão para deletar: ")
-
-            # Validação para garantir que a entrada seja um número e não uma string vazia ou um valor não numérico
-            if entrada == "" or not entrada.isdigit():
-                print("ID inválido")
-                continue
+            if entrada == "":
+                sair = input("Sair do menu?(S/N)")
+                if sair.lower() == "n":
+                    continue
+                elif sair.lower() == "s":
+                    return
+                else:
+                    continue
             indice = int(entrada)
             if indice not in [x for x in listar_talhoes()]:
                 print("ID invalido")
