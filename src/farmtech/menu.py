@@ -7,6 +7,8 @@ import os
 
 def limparTela():
     os.system('cls' if os.name == 'nt' else 'clear')
+def pausar():
+    input("\nPressione ENTER para continuar...")
 
 def menu():
 
@@ -44,7 +46,7 @@ def menu():
             case _:
                 print("opçao invalida")
 
-        input("\nPressione ENTER para voltar ao menu...")
+        pausar()
 
 def mostrar_talhoes() -> bool:
     limparTela()
@@ -116,13 +118,13 @@ def alterar_talhao():
         while True:
             entrada = input("Informe o ID do talhão que deseja atualizar: ")
             if entrada == "":
-                sair = input("Deseja sair desta operação? (S/N): ")
-                if sair.lower() == "n":
-                    continue
-                elif sair.lower() == "s":
-                    return
-                else:
-                    continue
+                match input("Deseja sair desta operação? (S/N): ").lower().strip():
+                    case "s":
+                        return
+                    case "n":
+                        continue
+                    case _:
+                        continue
             if not entrada.isdigit():
                 print("❌ ID inválido. Tente novamente.")
                 continue
@@ -130,14 +132,134 @@ def alterar_talhao():
             if indice not in [x for x in range(len(listar_talhoes()))]:
                 print("❌ ID inválido. Tente novamente.")
                 continue
-            novo_nome = input("Digite o novo nome do talhão: ")
+            while True:
+                limparTela()
+                print("Selecione o que deseja alterar:")
+                print("[1] Nome \n"
+                      "[2] Cultura\n"
+                      "[3] Area\n"
+                      "[0] Sair\n")
 
-            if atualizar_talhao(indice, novo_nome):
-                print("✅ Talhão atualizado com sucesso!")
-                return
-            else:
-                print("❌ Não foi possível atualizar o talhão.")
-                return
+                match input("Escolha: "):
+                    case "1":
+                        novo_nome = input("Digite o novo nome do talhão: ")
+                        if atualizar_talhao(indice,novo_nome=novo_nome):
+                            print("✅ Talhão atualizado com sucesso!")
+                            match input("Deseja Continuar atualizando os dados?(S/N)").lower().strip():
+                                case "s":
+                                    pausar()
+                                case "n":
+                                    return
+                                case _:
+                                    continue
+
+                        else:
+                            print("❌ Não foi possível atualizar o talhão.")
+                            pausar()
+
+                    case "2":
+                        area = 0
+                        while True:
+                            print("Selecione o tipo de cultura:")
+                            print("[1] Cana de açúcar\n"
+                                  "[2] Café Arabica")
+                            escolha = input("Escolha: ")
+                            if escolha not in ["1","2"]:
+                                print("Opção inválida")
+                                continue
+                            break
+
+                        if escolha == "1":
+                            print("Cálculo da área (retângulo)\n"
+                                  "Informe as dimensões do terreno:")
+                            while True:
+                                try:
+                                    base = float(input("Base: "))
+                                    altura = float(input("Altura: "))
+                                    area = calculo_retangulo(base, altura)
+                                    break
+                                except ValueError:
+                                    print("Por favor insira somente números")
+                                    continue
+                        else:
+                            print("Cálculo da área (trapézio) \n"
+                                  "Informe as dimensões do terreno:")
+                            while True:
+                                try:
+                                    base_maior = float(input("Base Maior: "))
+                                    base_menor = float(input("Base Menor: "))
+                                    while base_menor > base_maior:
+                                        print("A base menor deve ser menor que a base maior")
+                                        base_menor = float(input("Base Menor: "))
+                                    altura = float(input("Altura: "))
+                                    area = calculo_trapezio(base_maior, base_menor, altura)
+                                    break
+                                except ValueError:
+                                    print("❌ Valor inválido. Digite apenas números.")
+                                    continue
+                        if atualizar_talhao(indice,nova_cultura=escolha,nova_area=area):
+                            print("✅ Talhão atualizado com sucesso!")
+                            match input("Deseja Continuar atualizando os dados?(S/N)").lower().strip():
+                                case "s":
+                                    pausar()
+                                case "n":
+                                    return
+                                case _:
+                                    continue
+
+                        else:
+                            print("❌ Não foi possível atualizar o talhão.")
+                            pausar()
+
+                    case "3":
+                        nova_area = 0
+                        if talhoes[indice].cultura == "Cana-de-açúcar":
+                            print("Cálculo da área (retângulo)\n"
+                                  "Informe as dimensões do terreno:")
+                            while True:
+                                try:
+                                    base = float(input("Base: "))
+                                    altura = float(input("Altura: "))
+                                    nova_area = calculo_retangulo(base, altura)
+                                    break
+                                except ValueError:
+                                    print("Por favor insira somente números")
+                                    continue
+
+                        else:
+                            print("Cálculo da área (trapézio) \n"
+                                  "Informe as dimensões do terreno:")
+                            while True:
+                                try:
+                                    base_maior = float(input("Base Maior: "))
+                                    base_menor = float(input("Base Menor: "))
+                                    while base_menor > base_maior:
+                                        print("A base menor deve ser menor que a base maior")
+                                        base_menor = float(input("Base Menor: "))
+                                    altura = float(input("Altura: "))
+                                    nova_area = calculo_trapezio(base_maior, base_menor, altura)
+                                    break
+                                except ValueError:
+                                    print("❌ Valor inválido. Digite apenas números.")
+                                    continue
+                        if atualizar_talhao(indice, nova_area=nova_area):
+                            print("✅ Talhão atualizado com sucesso!")
+                            match input("Deseja Continuar atualizando os dados?(S/N)").lower().strip():
+                                case "s":
+                                    pausar()
+                                case "n":
+                                    return
+                                case _:
+                                    continue
+
+                        else:
+                            print("❌ Não foi possível atualizar o talhão.")
+                            pausar()
+                    case "0":
+                        return
+                    case _:
+                       print("opçao invalida")
+                       pausar()
 
 def apagar_talhao():
     if mostrar_talhoes():
