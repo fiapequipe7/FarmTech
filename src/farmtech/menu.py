@@ -114,6 +114,7 @@ def adicionar_talhao():
             continue
     print("Talhão Cadastrado com sucesso!")
 def alterar_talhao():
+
     if mostrar_talhoes():
         while True:
             entrada = input("Informe o ID do talhão que deseja atualizar: ")
