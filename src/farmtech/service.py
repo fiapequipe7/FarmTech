@@ -26,13 +26,46 @@ def deletar_talhao(indice: int) -> bool:
     return True
 
 
-def atualizar_talhao(indice: int, novo_nome: str) -> bool:
+def atualizar_talhao(indice:int, novo_nome=None, nova_cultura=None, nova_area=None):
 
     if not 0 <= indice < len(talhoes):
         return False
 
-    if not novo_nome:
-        return False
+    talhao = talhoes[indice]
 
-    talhoes[indice].nome = novo_nome
-    return True
+    if novo_nome is not None:
+        if not novo_nome:
+            return False
+        talhao.nome = novo_nome
+        return True
+
+    if nova_cultura is not None:
+
+        if nova_cultura == "1":
+            talhao.cultura = "Cana-de-açúcar"
+            insumo_cultura = insumos[1]
+
+        elif nova_cultura == "2":
+            talhao.cultura = "Café Arabica"
+            insumo_cultura = insumos[0]
+
+        else:
+            return False
+
+        talhao.area = nova_area
+        talhao.insumos = calculo_insumos(nova_area, insumo_cultura)
+
+        return True
+
+    if nova_area is not None:
+
+        talhao.area = nova_area
+
+        if talhao.cultura == "Cana-de-açúcar":
+            talhao.insumos = calculo_insumos(nova_area, insumos[1])
+        else:
+            talhao.insumos = calculo_insumos(nova_area, insumos[0])
+
+        return True
+
+    return False
