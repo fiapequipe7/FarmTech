@@ -3,9 +3,9 @@
 """
 from pathlib import Path
 import csv
-from storage import talhoes,insumos
-from talhao import Talhao
-from calculos import calculo_insumos
+from farmtech.storage import *
+from farmtech.talhao import *
+from farmtech.calculos import *
 
 def export_csv():
     caminho = Path(__file__).resolve().parents[2] / "data" / "talhoes.csv"
