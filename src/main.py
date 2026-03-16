@@ -1,4 +1,4 @@
-from farmtech.menu import menu
+from menu import menu
 
 
 def main():
