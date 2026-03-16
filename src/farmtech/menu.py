@@ -24,6 +24,8 @@ def continuar():
             pausar()
             return True
         case "n":
+            pausar()
+            menu()
             return False
         case _:
             return False
@@ -108,7 +110,7 @@ def alterar_talhao():
         while True:
             entrada = input("Informe o ID do talhão que deseja atualizar: ")
             if sair(entrada):
-                return
+                break
             if not entrada.isdigit():
                 print("❌ ID inválido. Tente novamente.")
                 continue
