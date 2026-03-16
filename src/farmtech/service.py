@@ -1,10 +1,19 @@
 """
     lógica de manipulação de dados, cadastro, listagem, atualização e remoção
 """
-
+from pathlib import Path
+import csv
 from farmtech.storage import talhoes,insumos
 from farmtech.talhao import Talhao
 from farmtech.calculos import calculo_insumos
+
+def export_csv():
+    caminho = Path(__file__).resolve().parents[2] / "data" / "talhoes.csv"
+    with open(caminho,"w",newline="",encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Talhao","Cultura","Area"])
+        for talhao in talhoes:
+            writer.writerow([talhao.nome,talhao.cultura,talhao.area])
 
 
 def cadastrar_talhao(nome:str,cultura:str,area) -> None:

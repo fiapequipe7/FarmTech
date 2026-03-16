@@ -1,8 +1,9 @@
 """
     interface com usuário
 """
-from farmtech.calculos import *
-from farmtech.service import *
+from farmtech import storage
+from farmtech import calculos
+from farmtech import service
 import os
 
 def limparTela():
@@ -59,6 +60,8 @@ def menu():
                 apagar_talhao()
 
             case "0":
+                service.export_csv()
+                print("CSV exportado!")
                 break
 
             case _:
@@ -68,7 +71,7 @@ def menu():
 
 def mostrar_talhoes() -> bool:
     limparTela()
-    lista_de_talhoes = listar_talhoes()
+    lista_de_talhoes = service.listar_talhoes()
 
     if not lista_de_talhoes:
         print("⚠ Nenhum talhão cadastrado no sistema.")
@@ -93,12 +96,12 @@ def adicionar_talhao():
         if opcao == "1":
             cultura = "Cana-de-açúcar"
             area = imprimir_calculo_retangulo()
-            cadastrar_talhao(nome,cultura,area)
+            service.cadastrar_talhao(nome,cultura,area)
             break
         elif opcao == "2":
             cultura = "Café Arabica"
             area = imprimir_calculo_trapezio()
-            cadastrar_talhao(nome,cultura,area)
+            service.cadastrar_talhao(nome,cultura,area)
             break
         else:
             print("Opção inválida")
@@ -115,7 +118,7 @@ def alterar_talhao():
                 print("❌ ID inválido. Tente novamente.")
                 continue
             indice = int(entrada)
-            if indice not in [x for x in range(len(listar_talhoes()))]:
+            if indice not in [x for x in range(len(service.listar_talhoes()))]:
                 print("❌ ID inválido. Tente novamente.")
                 continue
             while True:
@@ -129,7 +132,7 @@ def alterar_talhao():
                 match input("Escolha: "):
                     case "1":
                         novo_nome = input("Digite o novo nome do talhão: ")
-                        if atualizar_talhao(indice,novo_nome=novo_nome):
+                        if service.atualizar_talhao(indice,novo_nome=novo_nome):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
@@ -151,7 +154,7 @@ def alterar_talhao():
                            area = imprimir_calculo_retangulo()
                         else:
                            area = imprimir_calculo_trapezio()
-                        if atualizar_talhao(indice,nova_cultura=escolha,nova_area=area):
+                        if service.atualizar_talhao(indice,nova_cultura=escolha,nova_area=area):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
@@ -161,11 +164,11 @@ def alterar_talhao():
                             pausar()
 
                     case "3":
-                        if talhoes[indice].cultura == "Cana-de-açúcar":
+                        if storage.talhoes[indice].cultura == "Cana-de-açúcar":
                             nova_area = imprimir_calculo_retangulo()
                         else:
                             nova_area = imprimir_calculo_trapezio()
-                        if atualizar_talhao(indice, nova_area=nova_area):
+                        if service.atualizar_talhao(indice, nova_area=nova_area):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
@@ -189,10 +192,10 @@ def apagar_talhao():
                 print("❌ ID inválido.")
                 continue
             indice = int(entrada)
-            if indice not in [x for x in range(len(listar_talhoes()))]:
+            if indice not in [x for x in range(len(service.listar_talhoes()))]:
                 print("❌ ID inválido.")
                 continue
-            if deletar_talhao(indice):
+            if service.deletar_talhao(indice):
                 print("🗑 Talhão removido com sucesso!")
             else:
                 print("❌ ID inválido.")
@@ -206,7 +209,7 @@ def imprimir_calculo_retangulo():
         try:
             base = float(input("Base: "))
             altura = float(input("Altura: "))
-            return calculo_retangulo(base, altura)
+            return calculos.calculo_retangulo(base, altura)
         except ValueError:
             print("Por favor insira somente números")
 
@@ -224,7 +227,7 @@ def imprimir_calculo_trapezio():
                 base_menor = float(input("Base Menor: "))
 
             altura = float(input("Altura: "))
-            return calculo_trapezio(base_maior, base_menor, altura)
+            return calculos.calculo_trapezio(base_maior, base_menor, altura)
 
         except ValueError:
             print("❌ Valor inválido. Digite apenas números.")
