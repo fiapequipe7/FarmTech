@@ -14,14 +14,14 @@
 - <a href="https://www.linkedin.com/company/inova-fusca">Ricardo Colpani Sprocati de OLiveira</a>
 - <a href="https://www.linkedin.com/company/inova-fusca">Luiz Henrique Martins Dias </a>
 - <a href="https://www.linkedin.com/company/inova-fusca">Walter Corradini Ferreira </a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 4</a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 5</a>
+- <a href="https://www.linkedin.com/company/inova-fusca">Fahd Ozelame Al Khaldi</a> 
+- <a href="https://www.linkedin.com/company/inova-fusca">Eric Roberto Miglioli</a>
 
 ## 👩‍🏫 Professores:
 ### Tutor(a) 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do Tutor</a>
+- <a href="https://www.linkedin.com/company/inova-fusca">Nicolly Candida Rodrigues de Souza</a>
 ### Coordenador(a)
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do Coordenador</a>
+- <a href="https://www.linkedin.com/company/inova-fusca">Andre Godoi Chiovato</a>
 
 
 ## 📜 Descrição

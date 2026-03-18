@@ -1,16 +1,49 @@
 """
-    interface com usuário
+Módulo de interface com o usuário (CLI).
+
+Responsável pela interação via terminal, incluindo:
+- Exibição de menus
+- Entrada de dados
+- Navegação entre funcionalidades
+- Validação básica de entrada
 """
+
 from farmtech import storage
 from farmtech import calculos
 from farmtech import service
 import os
 
+
 def limparTela():
+    """
+    Limpa o terminal do usuário.
+
+    Compatível com:
+    - Windows (cls)
+    - Linux/Mac (clear)
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
 def pausar():
+    """
+    Pausa a execução até o usuário pressionar ENTER.
+    """
     input("\nPressione ENTER para continuar...")
+
+
 def sair(entrada):
+    """
+    Verifica se o usuário deseja sair da operação atual.
+
+    Caso a entrada esteja vazia, solicita confirmação.
+
+    Args:
+        entrada (str): Entrada fornecida pelo usuário.
+
+    Returns:
+        bool: True se o usuário desejar sair, False caso contrário.
+    """
     if entrada == "":
         match input("Deseja sair desta operação? (S/N): ").lower().strip():
             case "s":
@@ -19,7 +52,17 @@ def sair(entrada):
                 return False
             case _:
                 return False
+
+
 def continuar():
+    """
+    Pergunta ao usuário se deseja continuar realizando atualizações.
+
+    Returns:
+        bool:
+            True se o usuário quiser continuar.
+            False se quiser voltar ao menu principal.
+    """
     match input("Deseja Continuar atualizando os dados?(S/N)").lower().strip():
         case "s":
             pausar()
@@ -30,7 +73,19 @@ def continuar():
             return False
         case _:
             return False
+
+
 def menu():
+    """
+    Exibe o menu principal do sistema e gerencia o fluxo de navegação.
+
+    Permite acesso às funcionalidades:
+    - Cadastro
+    - Listagem
+    - Atualização
+    - Remoção
+    - Exportação de dados
+    """
     while True:
 
         limparTela()
@@ -50,7 +105,7 @@ def menu():
 """)
 
         match input("Escolha: "):
-            case  "1":
+            case "1":
                 adicionar_talhao()
             case "2":
                 mostrar_talhoes()
@@ -60,6 +115,7 @@ def menu():
                 apagar_talhao()
 
             case "0":
+                # Exporta os dados antes de encerrar o sistema
                 service.export_csv()
                 print("CSV exportado!")
                 break
@@ -69,7 +125,16 @@ def menu():
 
         pausar()
 
+
 def mostrar_talhoes() -> bool:
+    """
+    Exibe todos os talhões cadastrados no sistema.
+
+    Returns:
+        bool:
+            True se houver talhões cadastrados.
+            False caso a lista esteja vazia.
+    """
     limparTela()
     lista_de_talhoes = service.listar_talhoes()
 
@@ -84,43 +149,75 @@ def mostrar_talhoes() -> bool:
 
     return True
 
+
 def adicionar_talhao():
+    """
+    Realiza o cadastro de um novo talhão.
+
+    O usuário deve:
+    - Informar o nome
+    - Escolher a cultura
+    - Informar as dimensões do terreno
+
+    A área é calculada automaticamente conforme o tipo de cultura.
+    """
     while True:
         limparTela()
         print("=== Cadastro de Talhão ===")
+
         nome = input("Nome do talhão: ")
+
         print("Selecione o tipo de cultura:")
         print("[1] Cana de açúcar\n"
               "[2] Café Arabica")
+
         opcao = input("Escolha: ")
+
         if opcao == "1":
             cultura = "Cana-de-açúcar"
             area = imprimir_calculo_retangulo()
-            service.cadastrar_talhao(nome,cultura,area)
+            service.cadastrar_talhao(nome, cultura, area)
             break
+
         elif opcao == "2":
             cultura = "Café Arabica"
             area = imprimir_calculo_trapezio()
-            service.cadastrar_talhao(nome,cultura,area)
+            service.cadastrar_talhao(nome, cultura, area)
             break
+
         else:
             print("Opção inválida")
             continue
-    print("Talhão Cadastrado com sucesso!")
-def alterar_talhao():
 
+    print("Talhão Cadastrado com sucesso!")
+
+
+def alterar_talhao():
+    """
+    Permite atualizar os dados de um talhão existente.
+
+    O usuário pode alterar:
+    - Nome
+    - Cultura (com recálculo de área e insumos)
+    - Área (com recálculo de insumos)
+    """
     if mostrar_talhoes():
         while True:
             entrada = input("Informe o ID do talhão que deseja atualizar: ")
+
             if sair(entrada):
                 break
+
             if not entrada.isdigit():
                 print("❌ ID inválido. Tente novamente.")
                 continue
+
             indice = int(entrada)
+
             if indice not in [x for x in range(len(service.listar_talhoes()))]:
                 print("❌ ID inválido. Tente novamente.")
                 continue
+
             while True:
                 limparTela()
                 print("Selecione o que deseja alterar:")
@@ -132,76 +229,102 @@ def alterar_talhao():
                 match input("Escolha: "):
                     case "1":
                         novo_nome = input("Digite o novo nome do talhão: ")
-                        if service.atualizar_talhao(indice,novo_nome=novo_nome):
+
+                        if service.atualizar_talhao(indice, novo_nome=novo_nome):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
                         else:
                             print("❌ Não foi possível atualizar o talhão.")
                             pausar()
+
                     case "2":
                         while True:
                             print("Selecione o tipo de cultura:")
                             print("[1] Cana de açúcar\n"
                                   "[2] Café Arabica")
+
                             escolha = input("Escolha: ")
-                            if escolha not in ["1","2"]:
+
+                            if escolha not in ["1", "2"]:
                                 print("Opção inválida")
                                 continue
                             break
 
+                        # Recalcula área conforme o tipo de cultura
                         if escolha == "1":
-                           area = imprimir_calculo_retangulo()
+                            area = imprimir_calculo_retangulo()
                         else:
-                           area = imprimir_calculo_trapezio()
-                        if service.atualizar_talhao(indice,nova_cultura=escolha,nova_area=area):
+                            area = imprimir_calculo_trapezio()
+
+                        if service.atualizar_talhao(indice, nova_cultura=escolha, nova_area=area):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
-
                         else:
                             print("❌ Não foi possível atualizar o talhão.")
                             pausar()
 
                     case "3":
+                        # Mantém a cultura atual e recalcula área
                         if storage.talhoes[indice].cultura == "Cana-de-açúcar":
                             nova_area = imprimir_calculo_retangulo()
                         else:
                             nova_area = imprimir_calculo_trapezio()
+
                         if service.atualizar_talhao(indice, nova_area=nova_area):
                             print("✅ Talhão atualizado com sucesso!")
                             if continuar():
                                 continue
-
                         else:
                             print("❌ Não foi possível atualizar o talhão.")
                             pausar()
+
                     case "0":
                         return
+
                     case _:
-                       print("opçao invalida")
-                       pausar()
+                        print("opçao invalida")
+                        pausar()
+
 
 def apagar_talhao():
+    """
+    Remove um talhão do sistema com base no ID informado pelo usuário.
+    """
     if mostrar_talhoes():
         while True:
             entrada = input("Digite o ID do talhão para deletar: ")
+
             if sair(entrada):
                 return
+
             if not entrada.isdigit():
                 print("❌ ID inválido.")
                 continue
+
             indice = int(entrada)
+
             if indice not in [x for x in range(len(service.listar_talhoes()))]:
                 print("❌ ID inválido.")
                 continue
+
             if service.deletar_talhao(indice):
                 print("🗑 Talhão removido com sucesso!")
             else:
                 print("❌ ID inválido.")
+
             return
 
+
 def imprimir_calculo_retangulo():
+    """
+    Solicita ao usuário as dimensões de um terreno retangular
+    e retorna a área calculada em hectares.
+
+    Returns:
+        float: Área calculada.
+    """
     print("Cálculo da área (retângulo)")
     print("Informe as dimensões do terreno:")
 
@@ -213,7 +336,18 @@ def imprimir_calculo_retangulo():
         except ValueError:
             print("Por favor insira somente números")
 
+
 def imprimir_calculo_trapezio():
+    """
+    Solicita ao usuário as dimensões de um terreno em formato de trapézio
+    e retorna a área calculada em hectares.
+
+    Garante que:
+    - A base menor seja menor que a base maior
+
+    Returns:
+        float: Área calculada.
+    """
     print("Cálculo da área (trapézio)")
     print("Informe as dimensões do terreno:")
 
@@ -222,6 +356,7 @@ def imprimir_calculo_trapezio():
             base_maior = float(input("Base Maior: "))
             base_menor = float(input("Base Menor: "))
 
+            # Validação da regra geométrica
             while base_menor > base_maior:
                 print("A base menor deve ser menor que a base maior")
                 base_menor = float(input("Base Menor: "))
